@@ -1937,4 +1937,25 @@ input[type="radio"]:not(:disabled)+span:hover:before {
   outline-width: 2px;
   outline-style: dotted;
   }
+
+  .feed-container {
+    width: 450px;
+    height: 95px;
+    overflow: hidden;
+    position: fixed;
+    top: 5px; 
+    left: 5px; 
+    z-index: 1; 
+  }
+  
+  .feed {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    color: rgb(189, 189, 189);
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+  }
   

@@ -81,6 +81,10 @@
         marked.parse('# Marked in the browser\n\nRendered by **marked**.');
     </script-->
 
+    <div class="feed-container">
+      <div class="feed" id="live-events">
+      </div>
+    </div>
 
     <div class="container" style="width:100% !important; margin-left: 0px !important; padding: 12px !important;">
       <!-- Row 1 with nav spanning the entire width and a fixed top-->
@@ -1790,6 +1794,36 @@ closeFormButton.addEventListener('click', (event) => {
   window.record = record;
   window.cancelRecording = cancelRecording;
   window.stopRecording = stopRecording;
+
+  //Live Events Text
+  const events = vocalizationEvents.map(event => ({ ...event, eventType: 'Vocalization' }))
+    .concat(Object.values(movementEvents).map(event => ({ ...event, eventType: 'Movement' })));
+
+  const liveEvents = document.getElementById('live-events');
+  const maxItems = 5;
+
+  function displayEvents() {
+    if (events.length > 0) {
+      const item = document.createElement('div');
+      item.className = 'feed-item';
+      item.innerText = `Timestamp: ${events[0].timestamp}, Event Type: ${events[0].eventType}, Species: ${events[0].commonName}`;
+
+      liveEvents.appendChild(item);
+
+      item.addEventListener('click', () => {
+          highlightMapEvent(eventData.eventId);
+      });
+
+      if (liveEvents.childElementCount > maxItems) {
+        liveEvents.removeChild(liveEvents.firstElementChild);
+      }
+      events.shift(); 
+    }
+  }
+
+  displayEvents();
+
+  setInterval(displayEvents, 2000);
 
 </script>
   </body>
